@@ -299,7 +299,7 @@ class Array:
 
     def to_arrayfire(self):
         """ Creates an Arrayfire array from this KHIVA array. This need to be used carefully as the same array
-        reference is oging to be used by both of them. Once the Arrayfire array is created, the destructor of
+        reference is going to be used by both of them. Once the Arrayfire array is created, the destructor of
         the KHIVA array is not going to free the allocated array.
 
         :return: an Arrayfire Array
@@ -307,7 +307,7 @@ class Array:
         try:
             import arrayfire as af
         except ModuleNotFoundError as e:
-            raise ModuleNotFoundError(f"{e}. In order to use `to_arrayfire()` function, you need to install the Arrayfire Python library.")
+            raise ModuleNotFoundError("{}. In order to use `to_arrayfire()` function, you need to install the Arrayfire Python library.".format(e))
 
         result = af.Array()
         result.arr = self.arr_reference
