@@ -18,6 +18,21 @@ from khiva.array import Array
 ########################################################################################################################
 
 
+def pearson_correlation(xss, yss):
+    """ TODO: dmitry Add docs
+    """
+    b = ctypes.c_void_p(0)
+    error_code = ctypes.c_int(0)
+    error_message = ctypes.create_string_buffer(256)
+    KhivaLibrary().c_khiva_library.pearson_statistics(ctypes.pointer(xss.arr_reference),
+                                                      ctypes.pointer(yss.arr_reference),
+                                                      ctypes.pointer(b), ctypes.pointer(error_code), error_message)
+    if error_code.value != 0:
+        raise Exception(str(error_message.value.decode()))
+
+    return Array(array_reference=b)
+
+
 def covariance(tss, unbiased=False):
     """ Returns the covariance matrix of the time series contained in tss.
 
